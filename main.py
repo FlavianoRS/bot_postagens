@@ -40,7 +40,7 @@ for lin, col in tabela.iterrows():
             sleep(5)
         except Exception as error:
             with open("ERROS.csv", "a", newline="", encoding="utf-8") as arq:
-                arq.write(f"\nGrupo {col[1]} não encontrado, {datetime.now()}")
+                arq.write(f"\nGrupo {col[1]} não encontrado, verifique o nome do grupo, {datetime.now()}")
             
     else:
         try:
@@ -52,8 +52,7 @@ for lin, col in tabela.iterrows():
             sleep(5)
         except Exception as error:
             with open("ERROS.csv", "a", newline="", encoding="utf-8") as arq:
-                arq.writelines(f"\nMensagem não enviada para {col[1]}, {datetime.now()}")
-            
+                arq.writelines(f"\nMensagem não enviada para {col[1]}, número inválido ,{datetime.now()}")
             
             
             
@@ -71,9 +70,11 @@ for lin, col in tabela.iterrows():
             sleep(5)
             navegador.find_element(By.XPATH, '//*[@id="app"]/div/div[2]/div[2]/div[2]/span/div/span/div/div/div[2]/div/div[2]/div[2]/div/div').click()
             sleep(10)
+            navegador.find_element(By.XPATH, '//*[@id="side"]/div[1]/div/div[2]/button/div[2]/span').click()
+            sleep(5)
         except:
             with open("ERROS.csv", "a", encoding='utf-8') as arq:
-                arq.writelines(f"\nBotão não disponível para enviar arquivo, {datetime.now()}")
+                arq.writelines(f"\nBotão não disponível para enviar arquivo, arquivo não encontrado para {col[1]}, {datetime.now()}")
     else:
         try:
             if (col[0] == "grupo"):
@@ -85,7 +86,7 @@ for lin, col in tabela.iterrows():
             sleep(5)
         except:
             with open("ERROS.csv", "a", encoding='utf-8') as arq:
-                arq.writelines(f"\nNão foi possível enviar a mensagem, {datetime.now()}")
+                arq.writelines(f"\nNão foi possível enviar a mensagem, tela com caixa de mensagem alerta, {datetime.now()}")
 
 print("terminou")
 pyautogui.hotkey("ctrl","w")
